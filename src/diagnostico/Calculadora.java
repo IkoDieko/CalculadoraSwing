@@ -150,7 +150,8 @@ public class Calculadora extends JFrame {
 			calcularResultado();
                     }
 		} else if (tecla.equals("CLEAR")) {
-			resultado = 0;if (pantalla.getText().equals("")){
+			resultado = 0;
+                        if (pantalla.getText().equals("")){
                 }
 			pantalla.setText("");
 			nuevaOperacion = true;
@@ -178,7 +179,8 @@ public class Calculadora extends JFrame {
 		} else if (operacion.equals("/")) {
                     if (pantalla.getText().equals("0")){
                         JOptionPane.showMessageDialog(panelNumeros, "Error.");
-                        pantalla.setText("");
+                        resultado = 0;
+                        pantalla.setText("0");
                         nuevaOperacion = true;
                     } else{
 			resultado /= new Double(pantalla.getText());
@@ -190,7 +192,13 @@ public class Calculadora extends JFrame {
                 } else if (operacion.equals("cos")){
                         resultado = Math.cos(Math.toRadians(new Double(pantalla.getText())));
                 } else if (operacion.equals("tan")){
+                    if (pantalla.getText().equals("90")){
+                        JOptionPane.showMessageDialog(panelNumeros, "Error.");
+                        pantalla.setText("");
+                        nuevaOperacion = true;
+                    } else {
                         resultado = Math.tan(Math.toRadians(new Double(pantalla.getText())));
+                    }
                 } else if (operacion.equals("^")){
                         resultado = Math.pow(resultado, new Double(pantalla.getText()));
                 } else if (operacion.equals("√")){
