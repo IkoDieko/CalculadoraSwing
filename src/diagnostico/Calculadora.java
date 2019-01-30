@@ -17,6 +17,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Calculadora extends JFrame {
 
@@ -143,12 +144,18 @@ public class Calculadora extends JFrame {
 	private void operacionPulsado(String tecla) {
             
 		if (tecla.equals("=")) {
+                    if (pantalla.getText().equals("")){
+                        JOptionPane.showMessageDialog(panelNumeros, "Introducir un numero.");
+                    } else {
 			calcularResultado();
+                    }
 		} else if (tecla.equals("CLEAR")) {
-			resultado = 0;
+			resultado = 0;if (pantalla.getText().equals("")){
+                }
 			pantalla.setText("");
 			nuevaOperacion = true;
-		} else {
+		} 
+                else {
 			operacion = tecla;
 			if ((resultado > 0) && !nuevaOperacion) {
 				calcularResultado();
@@ -158,6 +165,8 @@ public class Calculadora extends JFrame {
 		}
 
 		nuevaOperacion = true;
+                
+                
 	}
 
 	/** Calcula el resultado y lo muestra por pantalla */
@@ -167,7 +176,13 @@ public class Calculadora extends JFrame {
 		} else if (operacion.equals("-")) {
 			resultado -= new Double(pantalla.getText());
 		} else if (operacion.equals("/")) {
+                    if (pantalla.getText().equals("0")){
+                        JOptionPane.showMessageDialog(panelNumeros, "Error.");
+                        pantalla.setText("");
+                        nuevaOperacion = true;
+                    } else{
 			resultado /= new Double(pantalla.getText());
+                    }
 		} else if (operacion.equals("*")) {
 			resultado *= new Double(pantalla.getText());
 		} else if (operacion.equals("sen")){
